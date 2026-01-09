@@ -1,0 +1,27 @@
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+import numpy as np # Import numpy to use sqrt
+
+# Define features (X) and target (y)
+X_sepal_width = dfa[['SepalLengthCm', 'PetalLengthCm', 'PetalWidthCm']]
+y_sepal_width = dfa['SepalWidthCm']
+
+# Split the data into training and testing sets
+X_train_sw, X_test_sw, y_train_sw, y_test_sw = train_test_split(X_sepal_width, y_sepal_width, test_size=0.3, random_state=42)
+
+# Create and train the Linear Regression model
+model_sw = LinearRegression()
+model_sw.fit(X_train_sw, y_train_sw)
+
+# Make predictions on the test data
+y_pred_sw = model_sw.predict(X_test_sw)
+
+# Evaluate the model
+mse = mean_squared_error(y_test_sw, y_pred_sw)
+rmse = np.sqrt(mse) # Calculate RMSE manually
+r2 = r2_score(y_test_sw, y_pred_sw)
+
+print(f"Mean Squared Error (MSE): {mse:.4f}")
+print(f"Root Mean Squared Error (RMSE): {rmse:.4f}")
+print(f"R-squared (R2): {r2:.4f}")
