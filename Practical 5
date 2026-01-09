@@ -1,0 +1,30 @@
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import classification_report, confusion_matrix
+from sklearn.preprocessing import LabelEncoder
+
+# Define features (X) and target (y)
+X_iris = dfa[['SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']]
+y_iris = dfa['Species']
+
+# Encode the target variable (Species) as it's categorical
+label_encoder = LabelEncoder()
+y_iris_encoded = label_encoder.fit_transform(y_iris)
+
+# Split the data into training and testing sets
+X_train_iris, X_test_iris, y_train_iris_encoded, y_test_iris_encoded = train_test_split(X_iris, y_iris_encoded, test_size=0.3, random_state=42)
+
+# Create and train the Logistic Regression model
+model_iris = LogisticRegression(max_iter=200) # Increased max_iter for convergence
+model_iris.fit(X_train_iris, y_train_iris_encoded)
+
+# Make predictions on the test data
+y_pred_iris_encoded = model_iris.predict(X_test_iris)
+
+# Evaluate the model
+conf_matrix = confusion_matrix(y_test_iris_encoded, y_pred_iris_encoded)
+class_report = classification_report(y_test_iris_encoded, y_pred_iris_encoded, target_names=label_encoder.classes_)
+
+# Print the evaluation metrics
+print("Confusion Matrix:\n", conf_matrix)
+print("\nClassification Report:\n", class_report)
