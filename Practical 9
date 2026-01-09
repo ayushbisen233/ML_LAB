@@ -1,0 +1,31 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+
+iris = load_iris()
+X = iris.data
+
+scaler = StandardScaler()
+X_std = scaler.fit_transform(X)
+
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X_std)
+
+# Get cluster labels
+labels = kmeans.labels_
+centroids = kmeans.cluster_centers_
+
+# Visualize clusters
+plt.figure(figsize=(8,6))
+plt.scatter(X_std[:, 0], X_std[:, 1], c=labels, cmap='rainbow', s=40)
+plt.scatter(centroids[:, 0], centroids[:, 1], c='black', marker='X', s=200)
+plt.title("K-Means Clustering on Iris Dataset")
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.show()
+
+# Display inertia (how compact clusters are)
+print("Inertia (Within-cluster sum of squares):", kmeans.inertia_)
