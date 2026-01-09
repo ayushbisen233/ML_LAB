@@ -1,0 +1,22 @@
+import numpy as np
+a=np.array([(1,2,3),(3,4,4)])
+print(a)
+print(type(a))
+a=np.array([(1,2,3),(3,4,4)])
+
+b=np.array([1,2,3])
+print(b)
+print(b.dtype)
+print(a.ndim)
+print(b.ndim)
+print(a.shape)
+b.shape
+a.dtype
+a=np.array([(1,2,3),(3,4,4)],dtype='int16')
+print(a.dtype)
+print(a.itemsize)
+a=np.array([(1,2,3),(3,4,4)], dtype='int32')
+print(a.itemsize)
+print(a.size)
+print(a.size, a.itemsize)
+print(a.nbytes)
